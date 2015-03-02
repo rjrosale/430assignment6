@@ -9,7 +9,7 @@ struct ifC<T> {
 }
 
 struct idC {
-  symbol: String
+  symbol: string
 }
 
 struct appC<T> {
@@ -27,13 +27,8 @@ struct boolC {
   b: bool
 }
 
-struct lamC<T> {
+struct lamC {
   args: Vec<String>
-  body: T
-}
-
-struct with<T> {
-  vars: Vec<Vec<String>>
   body: T
 }
 
