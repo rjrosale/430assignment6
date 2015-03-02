@@ -5,7 +5,7 @@ struct numC {
 struct ifC<T> {
   cond: T,
   first: T,
-  second: T,
+  second: T
 }
 
 struct idC {
@@ -14,13 +14,13 @@ struct idC {
 
 struct appC<T> {
   func: T,
-  args: Vec<T>,
+  args: Vec<T>
 }
 
 struct binOp<T> {
   operator: String,
   first: T,
-  second: T,
+  second: T
 }
 
 struct boolC {
@@ -29,7 +29,7 @@ struct boolC {
 
 struct lamC<T> {
   args: Vec<String>,
-  body: T,
+  body: T
 }
 
 struct with<T> {
@@ -37,6 +37,6 @@ struct with<T> {
   body: T
 }
 
-fn main () {
-  return
+fn main() {
+	println!("running");
 }

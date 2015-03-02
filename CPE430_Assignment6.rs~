@@ -5,7 +5,11 @@ struct numC {
 struct ifC<T> {
   cond: T,
   first: T,
+<<<<<<< HEAD
   second: T,
+=======
+  second: T
+>>>>>>> 73cedb41b2237cad99eb6f525ceeefd0b7adf8ce
 }
 
 struct idC {
@@ -14,13 +18,21 @@ struct idC {
 
 struct appC<T> {
   func: T,
+<<<<<<< HEAD
   args: Vec<T>,
+=======
+  args: Vec<T>
+>>>>>>> 73cedb41b2237cad99eb6f525ceeefd0b7adf8ce
 }
 
 struct binOp<T> {
   operator: String,
   first: T,
+<<<<<<< HEAD
   second: T,
+=======
+  second: T
+>>>>>>> 73cedb41b2237cad99eb6f525ceeefd0b7adf8ce
 }
 
 struct boolC {
@@ -29,7 +41,11 @@ struct boolC {
 
 struct lamC<T> {
   args: Vec<String>,
+<<<<<<< HEAD
   body: T,
+=======
+  body: T
+>>>>>>> 73cedb41b2237cad99eb6f525ceeefd0b7adf8ce
 }
 
 struct with<T> {
@@ -37,4 +53,11 @@ struct with<T> {
   body: T
 }
 
-
+<<<<<<< HEAD
+fn main () {
+  return
+=======
+fn main() {
+	println!("running");
+>>>>>>> 73cedb41b2237cad99eb6f525ceeefd0b7adf8ce
+}
