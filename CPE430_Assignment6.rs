@@ -3,8 +3,8 @@ struct numC {
 }
 
 struct ifC<T> {
-  cond: T
-  first: T
+  cond: T,
+  first: T,
   second: T
 }
 
@@ -13,13 +13,13 @@ struct idC {
 }
 
 struct appC<T> {
-  func: T
+  func: T,
   args: Vec<T>
 }
 
 struct binOp<T> {
-  operator: String
-  first: T
+  operator: String,
+  first: T,
   second: T
 }
 
@@ -28,13 +28,15 @@ struct boolC {
 }
 
 struct lamC<T> {
-  args: Vec<String>
+  args: Vec<String>,
   body: T
 }
 
 struct with<T> {
-  vars: Vec<Vec<String>>
+  vars: Vec<Vec<String>>,
   body: T
 }
 
-
+fn main() {
+	println!("running");
+}
