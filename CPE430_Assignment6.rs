@@ -65,6 +65,8 @@ fn binOpHelper(op: String, first: ExprC, second: ExprC) -> Value
               else if op == "-" { Value::NumV(n - n2) }
               else if op == "/" { Value::NumV(n / n2) }
               else if op == "*" { Value::NumV(n * n2) }
+              else if op == "<=" { Value::BoolV(n <= n2) }
+              else if op == "eq?" { Value::BoolV(n == n2) }
               else { return Value::Missing },
               _ => return Value::Missing,
           }}
@@ -73,7 +75,6 @@ fn binOpHelper(op: String, first: ExprC, second: ExprC) -> Value
           {
             ExprC::BoolC(b2) =>
               if op == "eq?" { Value::BoolV(b == b2) }
-              else if op == "<=" { Value::BoolV(b <= b2) }
               else { return Value::Missing },
               _ => return Value::Missing,
           }},
@@ -149,17 +150,36 @@ fn main() {
   assert!(equals(testHelper(test2), Value::NumV(1)));
   let atest2_1 = ExprC::IfC(Box::new(ExprC::BoolC(false)), Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(2)));
   assert!(equals(testHelper(atest2_1), Value::NumV(2)));
-  let atest2_2 = ExprC::IfC(Box::new(ExprC::BoolC(false)), Box::new(ExprC::NumC(1)), Box::new(ExprC::BinOpC(str3, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(3)))));
+  let atest2_2 = ExprC::IfC(Box::new(ExprC::BoolC(false)), Box::new(ExprC::NumC(1)), Box::new(ExprC::BinOpC(str3, Box::new    (ExprC::NumC(1)), Box::new(ExprC::NumC(3)))));
   assert!(equals(testHelper(atest2_2), Value::NumV(4)));
   
   let str2 = "+".to_string();
   let test3 = ExprC::BinOpC(str2, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(3)));
   assert!(equals(testHelper(test3), Value::NumV(4)));
 
+  let str2 = "-".to_string();
+  let test3 = ExprC::BinOpC(str2, Box::new(ExprC::NumC(3)), Box::new(ExprC::NumC(2)));
+  assert!(equals(testHelper(test3), Value::NumV(1)));
+ 
+  let str2 = "*".to_string();
+  let test3 = ExprC::BinOpC(str2, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(3)));
+  assert!(equals(testHelper(test3), Value::NumV(3)));
+
+  let str2 = "/".to_string();
+  let test3 = ExprC::BinOpC(str2, Box::new(ExprC::NumC(10)), Box::new(ExprC::NumC(5)));
+  assert!(equals(testHelper(test3), Value::NumV(2)));
+
+  let rstr3 = "eq?".to_string();
+  let rtest4 = ExprC::BinOpC(rstr3, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(2)));
+  assert!(equals(testHelper(rtest4), Value::BoolV(false)));
+
+  let rstr3 = "<=".to_string();
+  let rtest4 = ExprC::BinOpC(rstr3, Box::new(ExprC::NumC(10)), Box::new(ExprC::NumC(20)));
+  assert!(equals(testHelper(rtest4), Value::BoolV(true)));
+
   let rstr3 = "eq?".to_string();
   let rtest4 = ExprC::BinOpC(rstr3, Box::new(ExprC::BoolC(true)), Box::new(ExprC::BoolC(false)));
   assert!(equals(testHelper(rtest4), Value::BoolV(false)));
-
   
   println!("All tests passed.");
 }
