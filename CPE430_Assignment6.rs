@@ -20,6 +20,41 @@ pub enum Value
   Missing,
 }
 
+fn equals(v1: Value, v2: Value) -> bool
+{
+  match v1
+  {
+    Value::NumV(val) =>
+      {
+        match v2
+        {
+          Value::NumV(val2) => return (val == val2),
+          _ => return false,
+        }
+      },
+
+      Value::BoolV(val) =>
+      {
+        match v2
+        {
+          Value::BoolV(val2) => return (val == val2),
+          _ => return false,
+        }
+      },
+
+      Value::StringV(val) =>
+      {
+        match v2
+        {
+          Value::StringV(val2) => return (val == val2),
+          _ => return false,
+        }
+      },
+
+      Value::Missing => return false,
+  }
+}
+
 fn binOpHelper(op: String, first: ExprC, second: ExprC) -> Value
 {
   
@@ -73,16 +108,16 @@ fn ifHelper(i: Value, t: Value, e: Value) -> Value
   }
 }
 
-fn testHelper(test: ExprC)
+fn testHelper(test: ExprC) -> Value
 {
-  let temp = interp(test);
-  match temp
+  return interp(test);
+  /*match temp
   {
     Value::NumV(n) => println!("Number is {}", n),
     Value::BoolV(b) => println!("Boolean is {}", b),
     Value::StringV(s) => println!("String is {}", s),
     Value::Missing => println!("error"),
-  }
+  }*/
 }
 
 fn main() {
@@ -90,12 +125,20 @@ fn main() {
     
   //tests!!!!!
   let test = ExprC::BoolC(true);
-  testHelper(test);
+  assert!(equals(testHelper(test), Value::BoolV(true)));
+
+  let mtest2 = ExprC::BoolC(false);
+  assert!(equals(testHelper(mtest2), Value::BoolV(false)));
+
+  let mtest = ExprC::NumC(1);
+  assert!(equals(testHelper(mtest), Value::NumV(1)));
   
   let test2 = ExprC::IfC(Box::new(ExprC::BoolC(true)), Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(2)));
-  testHelper(test2);
+  assert!(equals(testHelper(test2), Value::NumV(1)));
   
   let str2 = "+".to_string();
   let test3 = ExprC::BinOpC(str2, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(3)));
-  testHelper(test3);
+  assert!(equals(testHelper(test3), Value::NumV(4)));
+
+  println!("All tests passed.");
 }
