@@ -133,8 +133,13 @@ fn main() {
   let mtest = ExprC::NumC(1);
   assert!(equals(testHelper(mtest), Value::NumV(1)));
   
+  let str3 = "+".to_string();
   let test2 = ExprC::IfC(Box::new(ExprC::BoolC(true)), Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(2)));
   assert!(equals(testHelper(test2), Value::NumV(1)));
+  let atest2_1 = ExprC::IfC(Box::new(ExprC::BoolC(false)), Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(2)));
+  assert!(equals(testHelper(atest2_1), Value::NumV(2)));
+  let atest2_2 = ExprC::IfC(Box::new(ExprC::BoolC(false)), Box::new(ExprC::NumC(1)), Box::new(ExprC::BinOpC(str3, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(3)))));
+  assert!(equals(testHelper(atest2_2), Value::NumV(4)));
   
   let str2 = "+".to_string();
   let test3 = ExprC::BinOpC(str2, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(3)));
