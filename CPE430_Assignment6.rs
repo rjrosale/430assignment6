@@ -6,9 +6,6 @@ pub enum ExprC
 
   IfC(Box<ExprC>, Box<ExprC>, Box<ExprC>),
   BinOpC(String, Box<ExprC>, Box<ExprC>), 
-  /*AppC(Box<ExprC>, Vec<Box<ExprC>>),
-  LamC(Vec<String>, Box<ExprC>),
-  WithC(Vec<Vec<String>>, Box<ExprC>),*/
   Missing,
 }
 
