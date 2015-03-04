@@ -6,9 +6,6 @@ pub enum ExprC
 
   IfC(Box<ExprC>, Box<ExprC>, Box<ExprC>),
   BinOpC(String, Box<ExprC>, Box<ExprC>), 
-  /*AppC(Box<ExprC>, Vec<Box<ExprC>>),
-  LamC(Vec<String>, Box<ExprC>),
-  WithC(Vec<Vec<String>>, Box<ExprC>),*/
   Missing,
 }
 
@@ -63,9 +60,23 @@ fn binOpHelper(op: String, first: ExprC, second: ExprC) -> Value
       ExprC::NumC(n) => {
           match second 
           {
-              ExprC::NumC(n2) => Value::NumV(n + n2),
+              ExprC::NumC(n2) => 
+              if op == "+" { Value::NumV(n + n2) }
+              else if op == "-" { Value::NumV(n - n2) }
+              else if op == "/" { Value::NumV(n / n2) }
+              else if op == "*" { Value::NumV(n * n2) }
+              else { return Value::Missing },
               _ => return Value::Missing,
           }}
+      ExprC::BoolC(b) => {
+          match second
+          {
+            ExprC::BoolC(b2) =>
+              if op == "eq?" { Value::BoolV(b == b2) }
+              else if op == "<=" { Value::BoolV(b <= b2) }
+              else { return Value::Missing },
+              _ => return Value::Missing,
+          }},
       _ => return Value::Missing
       
   }
@@ -145,5 +156,10 @@ fn main() {
   let test3 = ExprC::BinOpC(str2, Box::new(ExprC::NumC(1)), Box::new(ExprC::NumC(3)));
   assert!(equals(testHelper(test3), Value::NumV(4)));
 
+  let rstr3 = "eq?".to_string();
+  let rtest4 = ExprC::BinOpC(rstr3, Box::new(ExprC::BoolC(true)), Box::new(ExprC::BoolC(false)));
+  assert!(equals(testHelper(rtest4), Value::BoolV(false)));
+
+  
   println!("All tests passed.");
 }
