@@ -123,13 +123,6 @@ fn ifHelper(i: Value, t: Value, e: Value) -> Value
 fn testHelper(test: ExprC) -> Value
 {
   return interp(test);
-  /*match temp
-  {
-    Value::NumV(n) => println!("Number is {}", n),
-    Value::BoolV(b) => println!("Boolean is {}", b),
-    Value::StringV(s) => println!("String is {}", s),
-    Value::Missing => println!("error"),
-  }*/
 }
 
 fn main() {
